@@ -1,0 +1,38 @@
+.reveal .no-border {
+  background: none;
+  border: none;
+  box-shadow: none; }
+.reveal .dark-border {
+  border-color: black; }
+.reveal code {
+  text-transform: none !important; }
+  .reveal code.code--small {
+    font-size: 22px; }
+.reveal pre code {
+  font-size: 1.8em;
+  line-height: 1.4;
+  padding: 1em; }
+.reveal a {
+  color: #073c4b; }
+
+#the-runner {
+  background: none;
+  border: none;
+  bottom: -250px;
+  box-shadow: none;
+  height: 275px;
+  left: 100px;
+  max-height: none;
+  position: absolute;
+  width: auto; }
+
+#blank-canvas {
+  background: white;
+  display: inline-block;
+  height: 450px;
+  margin-bottom: 20px;
+  width: 800px; }
+
+.iframe {
+  height: 100%;
+  width: 100%; }

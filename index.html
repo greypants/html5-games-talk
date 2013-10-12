@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>HTML 5 Games with JavaScript and Canvas</title>
+
+		<meta name="description" content="A talk from Converge RVA 2013">
+		<meta name="author" content="Dan Tello">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/preso.css">
+		<link rel="stylesheet" href="css/theme/viget.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>HTML 5 Games!!</h1>
+					<h3>with JavaScript &amp; Canvas!</h3>
+					<small>By <a href="http://viget.com/about/team/dtello">Dan Tello</a> / <a href="http://twitter.com/@dantello5">@dantello5</a> / <a href="https://github.com/greypants">greypants on GitHub</a></small>
+					<img id="the-runner" src="images/the-runner.gif" alt="">
+
+					<aside class="notes" data-markdown>
+						# Into screen
+					</aside>
+				</section>
+
+				<section data-background="images/bio.png" data-background-size="cover" data-background-position="50% 0">
+				</section>
+
+				<section>
+					<section>
+						<img src="images/london-2012.png" class="no-border" alt="">
+						<aside class="notes" data-markdown>
+							Tell the back-story about the olympics and Usain Bolt.
+						</aside>
+					</section>
+
+					<section>
+						<img src="images/evospeed.png" class="dark-border" alt="">
+						<small class="fragment"><a href="http://puma.com/evospeed">Formerly from puma.com/evospeed</a></small>
+					</section>
+
+					<section>
+						<img src="images/choose-character.png" class="dark-border" alt="">
+						<p class="fragment">Any likenesses to the following athletes in the last slide are purely conincidental.</p>
+						<aside class="notes" data-markdown>
+							Any likenesses to the following characters are purely conincidental.
+						</aside>
+					</section>
+
+					<section>
+						<img src="images/excite-bike.png" class="dark-border" alt="">
+						<aside class="notes" data-markdown>
+							Inspiration.
+						</aside>
+					</section>
+
+					<section>
+						<img src="images/punchout-trimmed.gif" height="700px" width="800px" class="dark-border" alt="">
+					</section>
+
+					<section>
+						<img src="images/run-puma-run.png" class="dark-border" alt="">
+						<div class="fragment">
+							<h4><a href="http://puma.com/runpumarun">puma.com/runpumarun</a></h4>
+							<p>sweet pixel art by <a href="http://twitter.com/@owenshifflett">@owenshifflett</a></p>
+						</div>
+						<aside class="notes" data-markdown>
+							Tell the back-story about the olypics and Usain Bolt.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Canvas.</h1>
+					</section>
+
+					<section>
+						<div id="blank-canvas"></div>
+						<h3><code>&lt;canvas&gt;&lt;/canvas&gt;</code></h3>
+
+						<aside class="notes">
+							Blank canvas analogy. Nothing gets nested in side it. Completely flat. The only thing you can do with it is draw to it.
+						</aside>
+					</section>
+
+					<section>
+						<ul>
+							<li>
+								A single DOM element.
+							</li>
+							<li class="fragment">
+								No DOM tree to interact with!
+							</li>
+							<li class="fragment">
+								No free interactivity like buttons, hovers, links, css styling, etc&hellip;
+							</li>
+						</ul>
+						<aside class="notes">
+							This means simple things like creating a button become very complex.
+							No elements to style with css.
+							No elements to interact with.
+							You have to create your own, or use a framework.
+						</aside>
+					</section>
+
+					<section>
+						<img src="http://www.moneyandshit.com/wp-content/uploads/2011/04/wat.jpg" alt="">
+					</section>
+
+
+				</section>
+
+				<section>
+					<h2>The Canvas Context</h2>
+					<pre class="fragment"><code data-trim contenteditable>
+var canvas = new document.createElement('canvas');
+var ctx = canvas.getContext('2d');
+					</code></pre>
+					<aside class="notes" data-markdown>
+						The way you interact with the canvas through its context.
+						Canvas is a dom element. The context the object that you can draw to.
+						2d is for everything else (even some 3d things!)
+						webGl is for webGl things
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<h1>Draw all the things!</h1>
+						<aside class="notes">There are a few ways to draw to the canvas</aside>
+					</section>
+
+					<section>
+						<h3>Pixel things</h3>
+						<pre><code data-trim contenteditable>
+var image = document.createElement('image');
+image.src = ('runner.png');
+ctx.drawImage(image, x, y);
+						</code></pre>
+						<p class="fragment">You can draw:</p>
+						<ul>
+							<li class="fragment"><code>&lt;img&gt;</code> elements</li>
+							<li class="fragment"><code>&lt;canvas&gt;</code> elements</li>
+							<li class="fragment"><code>&lt;video&gt;</code> elements</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Sprites</h3>
+						<img src="images/player-sprites.png" class="no-border" alt="">
+					</section>
+
+					<section>
+						<h4>Option 1:</h4>
+						<pre><code data-trim contenteditable>
+ctx.drawImage(
+  image,    // source image (spritesheet)
+  source.x, // source x (x location within a spritesheet)
+  source.y, // source y (y location within a spritesheet)
+  width,    // source width
+  height,   // source height
+  x,        // destination x
+  y,        // destination y
+  width,    // destination width (must match source width)
+  height    // destination height (must match source width)
+);
+						</code></pre>
+						<p>Clip with drawImage and move the source image.</p>
+						<aside class="notes">
+							This is one way to handle it. Another way is to give a sprite it's own canvas and use that as the clipping bounds
+						</aside>
+					</section>
+
+					<section>
+						<h4>Option 2</h4>
+						<p>Make each sprite a canvas object and draw to it.</p>
+						<pre><code data-trim contenteditable>
+var spriteCanvas = document.createElement('canvas');
+spriteCanvas.width = 50;
+spriteCanvas.height = 50;
+
+spriteCtx = spriteCanvas.getContext('2d');
+
+// Animate x and y position of the source image
+spriteCtx.drawImage(image, x, y);
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>Know iOS Resource Limits</h3>
+						<blockquote class="fragment">The maximum size for decoded GIF, PNG, and TIFF images is 3 megapixels for devices with less than 256 MB RAM and 5&nbsp;megapixels for devices with greater or equal than 256&nbsp;MB&nbsp;RAM.<br><cite><a href="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariWebContent/CreatingContentforSafarioniPhone/CreatingContentforSafarioniPhone.html">—developer.apple.com</a></cite></blockquote>
+					</section>
+					<section>
+						<h3>Vector Things</h3>
+						<pre><code data-trim contenteditable>
+ctx.fillStyle = "red";
+
+ctx.beginPath();
+ctx.moveTo(30, 30);
+ctx.lineTo(150, 150);
+ctx.bezierCurveTo(60, 70, 60, 70, 70, 150);
+ctx.lineTo(30, 30);
+ctx.fill();
+						</code></pre>
+						<aside class="notes">
+							The fun here is that you can change those values and dynanically change or animate your shape over time.
+						</aside>
+					</section>
+					<section>
+						<p data-height="268" data-theme-id="0" data-slug-hash="spzwq" data-user="greypants" data-default-tab="result" class='codepen'>See the Pen <a href='http://codepen.io/greypants/pen/spzwq'>spzwq</a> by greypants (<a href='http://codepen.io/greypants'>@greypants</a>) on <a href='http://codepen.io'>CodePen</a></p>
+						<script async src="//codepen.io/assets/embed/ei.js"></script>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>ANIMATE ALL THE THINGS!</h1>
+					</section>
+					<section>
+						<h1>Without jQuery or CSS 3</h1>
+					</section>
+					<section data-background="#000000">
+						<img src="images/gasp.png" class="no-border">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>The Animation Loop</h2>
+						<pre><code class="javascript">var loop = {
+  clearCanvas();
+  updateObjects();
+  render();
+  requestAnimationFrame(loop);
+};</code></pre>
+						<aside class="notes">
+							The way animating works, and ultimately our game, is by changing the positions of what we draw to the canvas, then rerender
+						</aside>
+					</section>
+					<section>
+						<h2><a href="http://codepen.io/greypants/pen/AuHhw">Codepen Example</a></h2>
+						<img src="images/example.png" alt="">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Time-based Animation</h2>
+						<ul>
+							<li class="fragment">Not all devices are created equal.</li>
+							<li class="fragment">pixels-per-frame VS. pixels-per-second</li>
+							<li class="fragment">Consistent gameplay across devices</li>
+						</ul>
+
+						<aside class="notes">
+							iPad 1 (or 2?) get ~12fps
+							60fps on my macbook in Chrome
+
+							if I want something to move across the screen at a certain speed, I want it to move in pixels per second, not frames per second. Otherwise, my game will craaaawwwl on slow devices, and be unplayably fast on faster ones.
+						</aside>
+					</section>
+
+					<section>
+						<pre><code>setDelta: function() {
+  frames.now = Date.now();
+  frames.delta = (frames.now - frames.then) / 1000;
+  frames.then = frames.now;
+}</code></pre>
+					</section>
+
+					<section>
+						<pre><code>var velocity = bullet.speed * frames.delta;
+bullet.x = bullet.x - velocity;</code></pre>
+					</section>
+
+					<section>
+						<h3>Example:</h3>
+						<a href="http://codepen.io/greypants/pen/JthEj"><img src="images/bullet-bill.png" class="dark-border" alt=""></a>
+					</section>
+				</section>
+
+				<section>
+					<h2>So far we can...</h2>
+					<ul>
+						<li class="fragment">Draw things</li>
+						<li class="fragment">Animate things</li>
+						<li class="fragment">Next we need to...</li>
+					</ul>
+					<aside class="notes">
+						The last thing we need to do in order to make a game is...
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<h1>Collide all the things!</h1>
+					</section>
+
+					<section>
+						<pre><code class="javascript">isCollision: function(a, b) {
+  return  a.x &lt;= (b.x + b.width) &amp;&amp;
+    b.x &lt;= (a.x + a.width) &amp;&amp;
+    a.y &lt;= (b.y + b.height) &amp;&amp;
+    b.y &lt;= (a.y + a.height);
+}</code></pre>
+						<ul>
+							<li class="fragment">Object with Object</li>
+							<li class="fragment">Mouse or Touch with Objects</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<a href="http://puma.com/runpumarun"><img src="images/hitAreas.png" alt=""></a>
+						<pre><code>PUMA.eightBit.debug = true;</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>HTML5 Audio</h1>
+						<pre><code><audio>
+  <source src="pew.mp3" type="audio/mp3">
+  <source src="pew.ogg" type="audio/ogg">
+</audio></code></pre>
+						<audio controls preload="auto">
+						  <source src="audio/pew.ogg" type="audio/ogg">
+						</audio>
+					</section>
+					<section>
+						<pre><code class="javascript">var audio = document.createElement('audio');
+audio.src = 'audio/pew.ogg';
+
+audio.play();
+</code></pre>
+					</section>
+
+					<section>
+						<h3>Garage band is great for sfx!</h3>
+						<img src="images/garageBand.png" alt="">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Putting it all together.</h1>
+					</section>
+
+					<section>
+							<h3><a href="http://github.com/greypants/blastEngine">greypants.github.io/BlastEngine</a></h3>
+						<img src="images/blastEngine.png" alt="">
+						<h2 class="fragment">Lets look at some code!</h2>
+					</section>
+
+					<section>
+						<h3>Code Structure</h3>
+						<ul>
+							<li>Be as organized as possible.</li>
+							<li>Create, extend, and re-use classes</li>
+							<li>Always be refactoring.</li>
+							<li>Get code reviews!</li>
+						</ul>
+					</section>
+
+					<aside class="notes">
+						Demo blockblaster, then open code and talk about organization
+					</aside>
+				</section>
+
+				<section>
+					<h1>Questions?</h1>
+					<h4>@dantello5</h4>
+					<ul class="fragment">
+						<li>Should I use a Library?</li>
+						<li>Getting game mechanics just right.</li>
+						<li>Level Design Challenges</li>
+						<li>Sound Design</li>
+						<li>Build Debugging Tools</li>
+						<li>Optimization and Performance</li>
+						<li>Working with a Designer</li>
+					</ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
