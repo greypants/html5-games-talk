@@ -37,11 +37,12 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-
+        <!-- Intro -->
 				<section>
 					<h1>HTML 5 Games!!</h1>
 					<h3>with JavaScript &amp; Canvas!</h3>
-					<small>By <a href="http://viget.com/about/team/dtello">Dan Tello</a> / <a href="http://twitter.com/@dantello5">@dantello5</a> / <a href="https://github.com/greypants">greypants on GitHub</a></small>
+					<br>
+					<h4>by <a href="http://twitter.com/@dantello5">@dantello5</a><br> <br><a href="https://github.com/greypants">greypants on GitHub</a></h4>
 					<img id="the-runner" src="images/the-runner.gif" alt="">
 
 					<aside class="notes" data-markdown>
@@ -49,9 +50,7 @@
 					</aside>
 				</section>
 
-				<section data-background="images/bio.png" data-background-size="cover" data-background-position="50% 0">
-				</section>
-
+        <!-- PUMA Story -->
 				<section>
 					<section>
 						<img src="images/london-2012.png" class="no-border" alt="">
@@ -62,14 +61,14 @@
 
 					<section>
 						<img src="images/evospeed.png" class="dark-border" alt="">
-						<small class="fragment"><a href="http://puma.com/evospeed">Formerly from puma.com/evospeed</a></small>
+						<small><a href="http://puma.com/evospeed">Formerly from puma.com/evospeed</a></small>
 					</section>
 
 					<section>
 						<img src="images/choose-character.png" class="dark-border" alt="">
-						<p class="fragment">Any likenesses to the following athletes in the last slide are purely conincidental.</p>
+						<p class="fragment">Any likenesses to the athletes in the last slide are purely conincidental.</p>
 						<aside class="notes" data-markdown>
-							Any likenesses to the following characters are purely conincidental.
+							Any likenesses to the athletes in the last slide are purely conincidental
 						</aside>
 					</section>
 
@@ -96,15 +95,18 @@
 					</section>
 				</section>
 
+        <!-- Canvas Intro -->
 				<section>
 					<section>
 						<h1>Canvas.</h1>
+						<pre class='fragment'><code data-trim>
+						var canvas = document.createElement('canvas');
+						</code></pre>
 					</section>
 
 					<section>
 						<div id="blank-canvas"></div>
 						<h3><code>&lt;canvas&gt;&lt;/canvas&gt;</code></h3>
-
 						<aside class="notes">
 							Blank canvas analogy. Nothing gets nested in side it. Completely flat. The only thing you can do with it is draw to it.
 						</aside>
@@ -131,17 +133,15 @@
 					</section>
 
 					<section>
-						<img src="http://www.moneyandshit.com/wp-content/uploads/2011/04/wat.jpg" alt="">
+						<img src="images/wat.jpg" alt="">
 					</section>
-
-
 				</section>
 
+        <!-- Context -->
 				<section>
 					<h2>The Canvas Context</h2>
-					<pre class="fragment"><code data-trim contenteditable>
-var canvas = new document.createElement('canvas');
-var ctx = canvas.getContext('2d');
+					<pre class="fragment"><code data-trim>
+						var ctx = canvas.getContext('2d');
 					</code></pre>
 					<aside class="notes" data-markdown>
 						The way you interact with the canvas through its context.
@@ -151,19 +151,61 @@ var ctx = canvas.getContext('2d');
 					</aside>
 				</section>
 
+        <!-- Drawing -->
 				<section>
 					<section>
 						<h1>Draw all the things!</h1>
 						<aside class="notes">There are a few ways to draw to the canvas</aside>
 					</section>
+					<section>
+						<h3>Vector Things</h3>
+						<pre><code data-trim>
+ctx.beginPath();
+ctx.arc(x, y, radius, startAngle, endAngle);
+ctx.fill();
+ctx.closePath();
+						</code></pre>
+						<aside class="notes">
+							If you're great at math, love numbers, or are a robot, you'll love drawing paths with canvas! If you're a normal human being, you'll find tools to do it for you.
+
+							- Illustrator export
+							- Drawing libraries
+
+							It looks boring now, but it'll get super exciting in a second.
+						</aside>
+					</section>
 
 					<section>
+						<h3>Path Methods</h3>
+						<ul>
+							<li>beginPath()</li>
+							<li>closePath()</li>
+							<li>arc()</li>
+							<li>arcTo()</li>
+							<li>lineTo()</li>
+							<li>moveTo()</li>
+							<li>quadraticCurveTo()</li>
+							<li>bezierCurveTo()</li>
+						</ul>
+					</section>
+				</section>
+
+        <!-- Pixel Things -->
+        <section>
+					<section>
 						<h3>Pixel things</h3>
-						<pre><code data-trim contenteditable>
-var image = document.createElement('image');
-image.src = ('runner.png');
-ctx.drawImage(image, x, y);
-						</code></pre>
+            <pre><code data-trim>
+var image = new Image();
+
+image.onload = function(e){
+  var x = (canvas.width - image.width) / 2;
+  var y = (canvas.height - image.height) / 2;
+  ctx.drawImage(image, x, y);
+};
+
+image.setAttribute('src', 'images/ship.png');
+            </code></pre>
+
 						<p class="fragment">You can draw:</p>
 						<ul>
 							<li class="fragment"><code>&lt;img&gt;</code> elements</li>
@@ -171,6 +213,10 @@ ctx.drawImage(image, x, y);
 							<li class="fragment"><code>&lt;video&gt;</code> elements</li>
 						</ul>
 					</section>
+				</section>
+
+        <!-- Sprites -->
+				<section>
 
 					<section>
 						<h3>Sprites</h3>
@@ -217,27 +263,23 @@ spriteCtx.drawImage(image, x, y);
 						<h3>Know iOS Resource Limits</h3>
 						<blockquote class="fragment">The maximum size for decoded GIF, PNG, and TIFF images is 3 megapixels for devices with less than 256 MB RAM and 5&nbsp;megapixels for devices with greater or equal than 256&nbsp;MB&nbsp;RAM.<br><cite><a href="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariWebContent/CreatingContentforSafarioniPhone/CreatingContentforSafarioniPhone.html">—developer.apple.com</a></cite></blockquote>
 					</section>
-					<section>
-						<h3>Vector Things</h3>
-						<pre><code data-trim contenteditable>
-ctx.fillStyle = "red";
+        </section>
 
-ctx.beginPath();
-ctx.moveTo(30, 30);
-ctx.lineTo(150, 150);
-ctx.bezierCurveTo(60, 70, 60, 70, 70, 150);
-ctx.lineTo(30, 30);
-ctx.fill();
-						</code></pre>
-						<aside class="notes">
-							The fun here is that you can change those values and dynanically change or animate your shape over time.
-						</aside>
-					</section>
-					<section>
-						<p data-height="268" data-theme-id="0" data-slug-hash="spzwq" data-user="greypants" data-default-tab="result" class='codepen'>See the Pen <a href='http://codepen.io/greypants/pen/spzwq'>spzwq</a> by greypants (<a href='http://codepen.io/greypants'>@greypants</a>) on <a href='http://codepen.io'>CodePen</a></p>
-						<script async src="//codepen.io/assets/embed/ei.js"></script>
-					</section>
-				</section>
+        <!-- Draw Text -->
+        <section>
+          <section>
+            <h2>Drawing Text</h2>
+          </section>
+          <section>
+            <pre><code data-trim>
+var text = "MEME ALL THE THINGS!";
+ctx.font = '60px Impact'
+ctx.strokeText(text, x, y);
+ctx.fillText(text, x, y);
+            </code></pre>
+          </section>
+        </section>
+
 
 				<section>
 					<section>
@@ -255,18 +297,14 @@ ctx.fill();
 					<section>
 						<h2>The Animation Loop</h2>
 						<pre><code class="javascript">var loop = {
-  clearCanvas();
-  updateObjects();
-  render();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  object.move()
+  object.draw()
   requestAnimationFrame(loop);
 };</code></pre>
 						<aside class="notes">
 							The way animating works, and ultimately our game, is by changing the positions of what we draw to the canvas, then rerender
 						</aside>
-					</section>
-					<section>
-						<h2><a href="http://codepen.io/greypants/pen/AuHhw">Codepen Example</a></h2>
-						<img src="images/example.png" alt="">
 					</section>
 				</section>
 
@@ -288,21 +326,15 @@ ctx.fill();
 					</section>
 
 					<section>
-						<pre><code>setDelta: function() {
-  frames.now = Date.now();
-  frames.delta = (frames.now - frames.then) / 1000;
-  frames.then = frames.now;
-}</code></pre>
-					</section>
+            <h4>Normalize velocity based on time passed.</h4>
 
-					<section>
-						<pre><code>var velocity = bullet.speed * frames.delta;
-bullet.x = bullet.x - velocity;</code></pre>
-					</section>
+						<pre><code data-trim>
+now = Date.now();
+delta = (now - then) / 1000;
+then = now;
 
-					<section>
-						<h3>Example:</h3>
-						<a href="http://codepen.io/greypants/pen/JthEj"><img src="images/bullet-bill.png" class="dark-border" alt=""></a>
+velocity = speed * delta
+            </code></pre>
 					</section>
 				</section>
 
@@ -314,7 +346,7 @@ bullet.x = bullet.x - velocity;</code></pre>
 						<li class="fragment">Next we need to...</li>
 					</ul>
 					<aside class="notes">
-						The last thing we need to do in order to make a game is...
+						The next thing we need to do in order to make a game is...
 					</aside>
 				</section>
 
@@ -323,33 +355,39 @@ bullet.x = bullet.x - velocity;</code></pre>
 						<h1>Collide all the things!</h1>
 					</section>
 
+          <section>
+            <a href="http://puma.com/runpumarun"><img src="images/hitAreas.png" alt=""></a>
+            <pre><code>PUMA.eightBit.debug = true;</code></pre>
+          </section>
+
 					<section>
-						<pre><code class="javascript">isCollision: function(a, b) {
+            <h3>Bounding Box Test</h3>
+						<pre><code class="javascript">var isCollision = function(a, b) {
   return  a.x &lt;= (b.x + b.width) &amp;&amp;
     b.x &lt;= (a.x + a.width) &amp;&amp;
     a.y &lt;= (b.y + b.height) &amp;&amp;
     b.y &lt;= (a.y + a.height);
 }</code></pre>
 						<ul>
-							<li class="fragment">Object with Object</li>
-							<li class="fragment">Mouse or Touch with Objects</li>
+							<li>Object with Object</li>
+							<li>Mouse or Touch with Objects</li>
 						</ul>
 
 					</section>
 
-					<section>
-						<a href="http://puma.com/runpumarun"><img src="images/hitAreas.png" alt=""></a>
-						<pre><code>PUMA.eightBit.debug = true;</code></pre>
-					</section>
 				</section>
 
 				<section>
 					<section>
 						<h1>HTML5 Audio</h1>
-						<pre><code><audio>
+						<pre><code data-trim>
+<audio src="pew.mp3"></audio>
+
+<audio>
   <source src="pew.mp3" type="audio/mp3">
   <source src="pew.ogg" type="audio/ogg">
-</audio></code></pre>
+</audio>
+            </code></pre>
 						<audio controls preload="auto">
 						  <source src="audio/pew.ogg" type="audio/ogg">
 						</audio>
@@ -376,7 +414,6 @@ audio.play();
 					<section>
 							<h3><a href="http://github.com/greypants/blastEngine">greypants.github.io/BlastEngine</a></h3>
 						<img src="images/blastEngine.png" alt="">
-						<h2 class="fragment">Lets look at some code!</h2>
 					</section>
 
 					<section>
@@ -389,14 +426,44 @@ audio.play();
 						</ul>
 					</section>
 
+          <section>
+            <h3>Tools I'd use in Game Dev now</h3>
+            <ul>
+              <li>CreateJS / EaselJS</li>
+              <li>CoffeeScript</li>
+              <li>Gulp + Browserify</li>
+              <li>Underscore / lodash</li>
+            </ul>
+          </section>
+
+          <section>
+            <h5>Resources:</h5>
+            <ul>
+              <li>github.com/greypants/canvas-game-dev</li>
+              <li>github.com/greypants/blastEngine</li>
+              <li>github.com/greypants/gulp-starter</li>
+              <li>viget.com/extend/time-based-animation</li>
+              <li>createjs.com</li>
+              <li>kineticjs.com</li>
+              <li>paperjs.org</li>
+              <li>html5rocks.com/en/tutorials/canvas/performance</li>
+            </ul>
+          </section>
+
 					<aside class="notes">
 						Demo blockblaster, then open code and talk about organization
 					</aside>
 				</section>
 
+        <section>
+          <h1>Thanks!</h1>
+          <p><strong>Twitter: @dantello5</strong></p>
+          <p><strong>GitHub: greypants</strong></p>
+        </section>
+
 				<section>
 					<h1>Questions?</h1>
-					<h4>@dantello5</h4>
+
 					<ul class="fragment">
 						<li>Should I use a Library?</li>
 						<li>Getting game mechanics just right.</li>
